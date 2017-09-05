@@ -1,0 +1,38 @@
+##################################
+# Dockerfile to build an Apache2 image
+##################################
+
+# Base image is Ubuntu
+FROM ubuntu:14.04
+
+ONBUILD ADD config /etc/appconfig
+
+# Author: Danh. Nguyen
+MAINTAINER Danh.Nguyen <danhnguyentk@gmail.com>
+
+# Install apache2 package
+# RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+COPY html httpd.conf  /var/www/htmls/
+
+ADD Downloads.tar /
+
+ENV DEBUG_LVL 3
+ENV APACHE_LOG_DIR /var/log/apache
+
+WORKDIR /var/loginfo
+
+EXPOSE 7373/udp 8080
+
+RUN echo "echo Welcome to Docker!"
+
+CMD echo Hello World!!
+
+CMD ["echo", "Dockerfile CMD demo"]
+
+CMD echo Hello World World!!
+
+CMD echo Example layer!!
+
+# Set entrypoint command
+ENTRYPOINT ["echo", "Dockerfile ENTRYPOINT demo"]
